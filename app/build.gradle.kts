@@ -14,9 +14,9 @@ android {
 
     defaultConfig {
         applicationId = "com.neilturner.aerialviews"
-        minSdk =23
-        targetSdk =30
-        versionCode = 1 // Will be incremented automatically on release
+        minSdk = 23
+        targetSdk = 31
+        versionCode = 2 // Will be incremented automatically on release
         versionName = "1.0"
 
         resValue("string", "app_name", "@string/app_name_release")
@@ -114,7 +114,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.9")
 
     // ExoPlayer
-    implementation("com.google.android.exoplayer:exoplayer-core:2.15.1")
+    implementation("com.google.android.exoplayer:exoplayer-core:2.16.1")
 
     // Kotpref
     implementation("com.chibatching.kotpref:kotpref:2.13.1")
