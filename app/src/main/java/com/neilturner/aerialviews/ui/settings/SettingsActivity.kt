@@ -1,12 +1,14 @@
 package com.neilturner.aerialviews.ui.settings
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.neilturner.aerialviews.R
 
-class SettingsActivity :AppCompatActivity(),
+class SettingsActivity :
+    AppCompatActivity(),
     PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +33,7 @@ class SettingsActivity :AppCompatActivity(),
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
+    @SuppressLint("MissingSuperCall")
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         // Save current activity title so we can set it again after a configuration change
@@ -55,7 +58,7 @@ class SettingsActivity :AppCompatActivity(),
             pref.fragment
         ).apply {
             arguments = args
-            setTargetFragment(caller, 0)
+            // setTargetFragment(caller, 0)
         }
         // Replace the existing Fragment with the new Fragment
         supportFragmentManager.beginTransaction()

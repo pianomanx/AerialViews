@@ -2,32 +2,25 @@ package com.neilturner.aerialviews.ui.settings
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
+import com.google.modernstorage.permissions.StoragePermissions
+import com.google.modernstorage.permissions.StoragePermissions.Action
+import com.google.modernstorage.permissions.StoragePermissions.FileType
 import com.neilturner.aerialviews.R
-import android.os.Parcelable
-import android.util.Log
-import android.widget.Toast
+import com.neilturner.aerialviews.models.prefs.LocalVideoPrefs
 import java.lang.Exception
 
 class SettingsFragment :
     PreferenceFragmentCompat(),
     PreferenceManager.OnPreferenceTreeClickListener {
-    private var state: Parcelable? = null
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.settings, rootKey)
-    }
-
-    override fun onPause() {
-        state = listView.layoutManager?.onSaveInstanceState()
-        super.onPause()
-    }
-
-    override fun onResume() {
-        if (state != null) listView.layoutManager?.onRestoreInstanceState(state)
-        super.onResume()
+        resetLocalPermissionIfNeeded()
     }
 
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
@@ -47,6 +40,23 @@ class SettingsFragment :
         return super.onPreferenceTreeClick(preference)
     }
 
+    private fun resetLocalPermissionIfNeeded() {
+
+        val permissionEnabled = LocalVideoPrefs.enabled
+        val storagePermissions = StoragePermissions(requireContext())
+        val canReadVideos = storagePermissions.hasAccess(
+            action = Action.READ,
+            types = listOf(FileType.Video),
+            createdBy = StoragePermissions.CreatedBy.AllApps
+        )
+
+        if (permissionEnabled &&
+            !canReadVideos
+        ) {
+            LocalVideoPrefs.enabled = false
+        }
+    }
+
     private fun testScreensaverSettings() {
         try {
             val intent = Intent().setClassName(requireContext(), TEST_SCREENSAVER)
@@ -63,7 +73,7 @@ class SettingsFragment :
         intents += Intent(SETTINGS)
 
         intents.forEach { intent ->
-            //Log.i(TAG, intent.toString())
+            // Log.i(TAG, intent.toString())
             if (intentAvailable(intent)) {
                 try {
                     startActivity(intent)

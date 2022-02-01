@@ -44,7 +44,7 @@ class VideoService(private val context: Context) {
         providers.forEach {
             val newVideos = try {
                 it.fetchVideos()
-            } catch(ex: Exception) {
+            } catch (ex: Exception) {
                 Log.e(TAG, ex.message!!)
                 emptyList()
             }
@@ -109,16 +109,6 @@ class VideoService(private val context: Context) {
     private fun appleManifestVideos(): List<AerialVideo> {
         val videos = mutableListOf<AerialVideo>()
 
-        //       JsonHelper.parseJson(context, R.raw.tvos10, JsonHelper.Wrapper::class.java)
-//            .assets?.forEach {
-//            videos.addAll(allVideoQualities(it))
-//        }
-
-//       JsonHelper.parseJson(context, R.raw.tvos11, JsonHelper.Wrapper::class.java)
-//            .assets?.forEach {
-//            videos.addAll(allVideoQualities(it))
-//        }
-
         try {
             JsonHelper.parseJson(context, R.raw.tvos12, JsonHelper.Apple2018Videos::class.java)
                 .assets?.forEach {
@@ -173,7 +163,7 @@ class VideoService(private val context: Context) {
         return videos
     }
 
-    private fun findVideoLocation(foundVideos: List<AerialVideo>, manifestVideos: List<AerialVideo>) : Pair<List<AerialVideo>,List<AerialVideo>> {
+    private fun findVideoLocation(foundVideos: List<AerialVideo>, manifestVideos: List<AerialVideo>): Pair<List<AerialVideo>, List<AerialVideo>> {
         val matched = mutableListOf<AerialVideo>()
         val unmatched = mutableListOf<AerialVideo>()
 

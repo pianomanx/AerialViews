@@ -22,7 +22,7 @@ class DreamActivity : DreamService() {
 
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
         if (event.action == KeyEvent.ACTION_UP) {
-            //Log.i(TAG, "${event.keyCode}")
+            // Log.i(TAG, "${event.keyCode}")
 
             if (!GeneralPrefs.enableSkipVideos)
                 finish()
@@ -38,23 +38,23 @@ class DreamActivity : DreamService() {
                 KeyEvent.KEYCODE_DPAD_DOWN -> return true
 
                 KeyEvent.KEYCODE_DPAD_LEFT -> {
-                    videoController!!.skipVideo(true)
+                    videoController?.skipVideo(true)
                     return true
                 }
 
                 KeyEvent.KEYCODE_DPAD_RIGHT -> {
-                    videoController!!.skipVideo()
+                    videoController?.skipVideo()
                     return true
                 }
 
                 // Any other button press will close the screensaver
-                else ->  finish()
+                else -> finish()
             }
         }
 
         return super.dispatchKeyEvent(event)
     }
-    
+
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         if (hasFocus && videoController?.view != null) {
@@ -63,7 +63,7 @@ class DreamActivity : DreamService() {
     }
 
     override fun onDreamingStopped() {
-        videoController!!.stop()
+        videoController?.stop()
         super.onDreamingStopped()
     }
 

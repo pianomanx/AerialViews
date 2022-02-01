@@ -1,8 +1,8 @@
 package com.neilturner.aerialviews.models.videos
 
 import android.net.Uri
-import com.neilturner.aerialviews.models.AppleVideoQuality
 import com.google.gson.annotations.SerializedName
+import com.neilturner.aerialviews.models.AppleVideoQuality
 
 class Apple2018Video {
 
@@ -23,13 +23,16 @@ class Apple2018Video {
 
     private val accessibilityLabel: String? = null
 
+    @SerializedName("pointsOfInterest")
+    val pointsOfInterest: Map<Int, String> = emptyMap()
+
     val location: String
         get() = accessibilityLabel!!
 
     fun uri(quality: AppleVideoQuality): Uri? {
         return Uri.parse(
-                url(quality) // Apple seems to be using an invalid certificate
-                        ?.replace("https://", "http://")
+            url(quality) // Apple seems to be using an invalid certificate
+                ?.replace("https://", "http://")
         )
     }
 

@@ -6,7 +6,12 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.SurfaceView
 import android.widget.MediaController.MediaPlayerControl
-import com.google.android.exoplayer2.*
+import com.google.android.exoplayer2.C
+import com.google.android.exoplayer2.DefaultLoadControl
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.PlaybackException
+import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector.ParametersBuilder
@@ -135,7 +140,7 @@ class ExoPlayerView(context: Context, attrs: AttributeSet? = null) : SurfaceView
         }
         if (playWhenReady && playbackState == Player.STATE_READY) {
             removeCallbacks(timerRunnable)
-            //compensate the duration based on the playback speed
+            // compensate the duration based on the playback speed
             postDelayed(timerRunnable, ((duration / GeneralPrefs.playbackSpeed.toFloat()).roundToLong() - DURATION))
         }
     }
@@ -171,18 +176,19 @@ class ExoPlayerView(context: Context, attrs: AttributeSet? = null) : SurfaceView
             val bufferForPlaybackAfterRebuffer = 1024
 
             loadControlBuilder
-                    .setBufferDurationsMs(
-                            minBuffer,
-                            maxBuffer,
-                            bufferForPlayback,
-                            bufferForPlaybackAfterRebuffer)
+                .setBufferDurationsMs(
+                    minBuffer,
+                    maxBuffer,
+                    bufferForPlayback,
+                    bufferForPlaybackAfterRebuffer
+                )
         }
         loadControl = loadControlBuilder.build()
         val parametersBuilder = ParametersBuilder(context)
 
         if (enableTunneling) {
             parametersBuilder
-                    .setTunnelingEnabled(true)
+                .setTunnelingEnabled(true)
         }
 
         if (exceedRendererCapabilities) {
@@ -195,16 +201,17 @@ class ExoPlayerView(context: Context, attrs: AttributeSet? = null) : SurfaceView
         trackSelector.parameters = parametersBuilder.build()
 
         val player = ExoPlayer.Builder(context)
-                .setLoadControl(loadControl)
-                .setTrackSelector(trackSelector)
-                .build()
+            .setLoadControl(loadControl)
+            .setTrackSelector(trackSelector)
+            .build()
 
-        //player.addAnalyticsListener(EventLogger(trackSelector))
-        
+        // player.addAnalyticsListener(EventLogger(trackSelector))
+
         if (muteVideo) {
             player.volume = 0f
         }
 
+        player.videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING
         player.setPlaybackSpeed(playbackSpeed.toFloat())
         return player
     }

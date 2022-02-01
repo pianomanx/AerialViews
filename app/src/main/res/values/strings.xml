@@ -1,8 +1,6 @@
 <resources>
     <!-- General -->
-    <string name="app_name_release">Aerial Views</string>
-    <string name="app_name_debug">Aerial Views (Debug)</string>
-    <string name="loading_aerial"></string>
+    <string name="app_name">Aerial Views</string>
 
     <!-- Categories -->
     <string name="category_capabilities">Capabilities</string>
@@ -28,6 +26,8 @@
         <item>4K SDR/HEVC</item>
         <item>4K HDR/HEVC</item>
     </string-array>
+
+    <string name="apple_videos_data_usage_title">Data usage</string>
 
     <!-- Any Video Options -->
     <string name="any_videos_title">Any Videos</string>
@@ -72,8 +72,15 @@
     <string name="interface_show_clock_title">Show clock</string>
     <string name="interface_show_clock_summary">Shows the current time</string>
 
-    <string name="interface_show_location_title">Show location</string>
-    <string name="interface_show_location_summary">Shows the title, usually the location, of the video</string>
+    <string name="interface_show_location_title">Show video title</string>
+    <string name="interface_show_location_summary">Shows a title or location for videos</string>
+
+    <string name="interface_show_location_style_title">Apple videos</string>
+    <string name="interface_show_location_style_summary">Choose a video title style</string>
+    <string-array name="interface_show_location_style_entries">
+        <item>Short title or location</item>
+        <item>Full location or points of interest</item>
+    </string-array>
 
     <string name="interface_alt_text_position_title">Alternate text position</string>
     <string name="interface_alt_text_position_summary">Position of clock and location change every video to help prevent OLED burn-in</string>
@@ -87,8 +94,8 @@
     <string name="interface_shuffle_videos_title">Shuffle videos</string>
     <string name="interface_shuffle_videos_summary">Randomises the order of the videos</string>
 
-    <string name="interface_remove_duplicates_title">Remove duplicates</string>
-    <string name="interface_remove_duplicates_summary">Removed duplicate videos from the playlist based on filename only</string>
+    <string name="interface_remove_duplicates_title">Remove duplicate videos</string>
+    <string name="interface_remove_duplicates_summary">Remove duplicate videos from the playlist based on filename only</string>
 
     <string name="performance_title">Performance &amp; Debug</string>
     <string name="performance_summary">For troubleshooting issues</string>
@@ -96,7 +103,7 @@
     <string name="performance_enable_tunneling_title">Enable tunneling</string>
     <string name="performance_enable_tunneling_summary">Use hardware acceleration, more important for 4K/HDR</string>
     <string name="performance_reduced_buffers_title">Use reduced video buffers</string>
-    <string name="performance_reduced_buffers_summary">Slightly quicker video loading a slower or high latency connection</string>
+    <string name="performance_reduced_buffers_summary">May help videos start a little faster on slower or high latency connection</string>
     <string name="performance_exceed_renderer_title">Exceed renderer capabilities</string>
     <string name="performance_exceed_renderer_summary">Exceed maximum detected video resolution - not useful to most devices!</string>
 
