@@ -31,5 +31,4 @@
                     android:key="network_videos_test_connection"
                     />
         </PreferenceCategory>
-
 </PreferenceScreen>
