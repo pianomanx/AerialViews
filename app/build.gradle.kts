@@ -49,20 +49,6 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             isMinifyEnabled = true
 
-            // Use different keys for different flavors of app
-            productFlavors.forEach { flavor ->
-                val keystoreFile = rootProject.file("signing/${flavor.name}.properties")
-                if (keystoreFile.exists()) {
-                    val keystoreProperties = Properties()
-                    keystoreProperties.load(FileInputStream(keystoreFile))
-                    flavor.signingConfig = android.signingConfigs.create(flavor.name)
-                    flavor.signingConfig?.storeFile = rootProject.file(keystoreProperties["storeFile"]!!)
-                    flavor.signingConfig?.storePassword = keystoreProperties["storePassword"] as String?
-                    flavor.signingConfig?.keyAlias = keystoreProperties["keyAlias"] as String?
-                    flavor.signingConfig?.keyPassword = keystoreProperties["keyPassword"] as String?
-                }
-            }
-
             manifestPlaceholders["analyticsCollectionEnabled"] = true
             manifestPlaceholders["crashlyticsCollectionEnabled"] = true
             manifestPlaceholders["performanceCollectionEnabled"] = true
@@ -77,10 +63,29 @@ android {
         }
         create("beta") {
             dimension = "version"
-            versionNameSuffix = "-beta1"
+            versionNameSuffix = "-beta2"
         }
         create("googleplay") {
             dimension = "version"
+        }
+    }
+}
+
+// Use different keys for different flavors of app
+androidComponents {
+    onVariants { variant ->
+        if (variant.buildType == "release" && variant.flavorName.isNullOrEmpty()) {
+            val keystoreFile = rootProject.file("signing/${variant.flavorName}.properties")
+            if (keystoreFile.exists()) {
+                val keystoreProperties = Properties()
+                keystoreProperties.load(FileInputStream(keystoreFile))
+                val signingConfig = android.signingConfigs.create(variant.flavorName!!)
+                signingConfig.storeFile = rootProject.file(keystoreProperties["storeFile"]!!)
+                signingConfig.storePassword = keystoreProperties["storePassword"] as String?
+                signingConfig.keyAlias = keystoreProperties["keyAlias"] as String?
+                signingConfig.keyPassword = keystoreProperties["keyPassword"] as String?
+                variant.signingConfig.setConfig(signingConfig)
+            }
         }
     }
 }
