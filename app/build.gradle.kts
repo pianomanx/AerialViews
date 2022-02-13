@@ -96,8 +96,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
 
     // Modern Storage
-    implementation("com.google.modernstorage:modernstorage-permissions:1.0.0-alpha05")
-    implementation("com.google.modernstorage:modernstorage-storage:1.0.0-alpha05")
+    implementation("com.google.modernstorage:modernstorage-permissions:1.0.0-alpha06")
+    implementation("com.google.modernstorage:modernstorage-storage:1.0.0-alpha06")
+    implementation("com.squareup.okio:okio:3.0.0")
 
     // Android X
     implementation("androidx.core:core-ktx:1.7.0")
@@ -109,12 +110,12 @@ dependencies {
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:29.0.0"))
-    implementation("com.google.firebase:firebase-analytics-ktx:20.0.2")
-    implementation("com.google.firebase:firebase-crashlytics-ktx:18.2.7")
-    implementation("com.google.firebase:firebase-perf-ktx:20.0.4")
+    implementation("com.google.firebase:firebase-analytics-ktx:20.1.0")
+    implementation("com.google.firebase:firebase-crashlytics-ktx:18.2.8")
+    implementation("com.google.firebase:firebase-perf-ktx:20.0.5")
 
     // GSON
-    implementation("com.google.code.gson:gson:2.8.9")
+    implementation("com.google.code.gson:gson:2.9.0")
 
     // ExoPlayer
     implementation("com.google.android.exoplayer:exoplayer-core:2.16.1")
